@@ -1,0 +1,46 @@
+<script>
+    class ShowMore extends HTMLElement {
+        constructor() {
+            super()
+
+            const actualText = this.textContent
+            const milliseconds = this.hasAttribute('milliseconds') ? this.getAttribute('milliseconds') : 0
+
+            const spanPrefix = document.createElement('span')
+            spanPrefix.innerHTML = this.hasAttribute('prefix') ? this.getAttribute('prefix') : ""
+
+            const spanShowmore = document.createElement('span')
+            spanShowmore.textContent = "show more"
+            if (milliseconds == 0) {
+                spanShowmore.addEventListener("click", function () {
+                    spanPrefix.textContent = actualText
+                })
+            } else {
+                spanShowmore.addEventListener("click", function () {
+                    let str = []
+                    let index = 0
+                    const id = setInterval(function () {
+                        if (index >= actualText.length) {
+                            clearInterval(id)
+                        } else {
+                            str = spanPrefix.textContent.split('')
+                            str[index] = actualText[index]
+                            spanPrefix.textContent = str.join('')
+                            index += 1
+                        }
+                    }, milliseconds)
+                })
+            }
+
+            spanPrefix.appendChild(spanShowmore)
+
+            const myStyle = document.createElement('style')
+            myStyle.textContent = "span span { cursor: pointer; color: var(--show-more-color, #007bff); }"
+
+            const shadowTree = this.attachShadow({ mode: 'open' })
+            shadowTree.appendChild(spanPrefix)
+            shadowTree.appendChild(myStyle)
+        }
+    }
+    window.customElements.define('show-more', ShowMore)
+</script>

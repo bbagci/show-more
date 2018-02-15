@@ -1,0 +1,18 @@
+{
+  "name": "show-more",
+  "authors": [
+    "Burak Bagci"
+  ],
+  "description": "A custom element that shortens text to a \"show more\" link and fold outs by a click",
+  "main": "show-more.html",
+  "keywords": [
+    "web-components",
+    "show-more",
+    "show",
+    "more",
+    "link",
+    "shortens",
+    "text"
+  ],
+  "license": "MIT"
+}
